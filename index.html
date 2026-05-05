@@ -1,97 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Folio</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Librería Online</title>
+    <link rel="stylesheet" href="Style.css">
 </head>
 <body>
-    <header>
-    <div class="header-inner">
-      <div class="logo">Fo<span>lio</span></div>
-      <div class="session-bar">
-        <button class="user-btn" id="sessionBtn">
-          <div class="user-avatar" id="userAvatar">?</div>
-          <span class="user-name" id="userName">Iniciar sesión</span>
-        </button>
-        <button class="cart-btn" id="cartBtn">
-          🛍 Carrito
-          <span class="cart-count hidden" id="cartCount">0</span>
-        </button>
-      </div>
-    </div>
-  </header>
 
-  <section class="hero">
-    <p class="hero-eyebrow">Librería editorial independiente</p>
-    <h1>Libros que dejan<br><em>huella</em></h1>
-    <p>Más de 200 títulos cuidadosamente seleccionados. Desde clásicos hasta novedades.</p>
-  </section>
+<header>
+    <h1>Librería Lemos</h1>
 
-  <main class="shop-layout">
-    <aside class="sidebar">
-      <div class="sidebar-section">
-        <h2 class="sidebar-title">Categorías</h2>
-        <ul class="cat-list" id="catList"></ul>
-      </div>
-      <div class="sidebar-section">
-        <h2 class="sidebar-title">Ordenar por</h2>
-        <select class="sort-select" id="sortSelect">
-          <option value="default">Destacados</option>
-          <option value="asc">Precio: menor a mayor</option>
-          <option value="desc">Precio: mayor a menor</option>
-          <option value="title">Título A–Z</option>
-        </select>
-      </div>
-      <div class="sidebar-section">
-        <h2 class="sidebar-title">Mi cuenta</h2>
-        <div class="session-info" id="sessionInfo">No has iniciado sesión.</div>
-      </div>
-    </aside>
+    <div class="top-right">
+        <button id="loginBtn" onclick="abrirLogin()">👤</button>
+        <button id="cartBtn" onclick="toggleCarrito()">🛒 <span id="cartCount">0</span></button>
+    </div>
+</header>
 
-    <section>
-      <div class="products-header">
-        <h2 id="sectionTitle">Todos los libros</h2>
-        <span class="products-count" id="productsCount"></span>
-      </div>
-      <div class="products-grid" id="productsGrid"></div>
-    </section>
-  </main>
+<div id="carritoBox" class="carrito">
+    <h3>Carrito</h3>
+    <ul id="carritoLista"></ul>
+    <p>Total: <span id="total">0</span> €</p>
+</div>
 
-  <div class="cart-overlay" id="cartOverlay"></div>
-  <div class="cart-panel" id="cartPanel">
-    <div class="cart-header">
-      <h3>🛍 Tu carrito</h3>
-      <button class="close-cart" id="closeCart">✕</button>
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <h3>Iniciar sesión</h3>
+        <input type="text" id="userInput" placeholder="Nombre de usuario">
+        <button onclick="login()">Entrar</button>
+        <button class="cerrar" onclick="cerrarLogin()">Cerrar</button>
+        <p id="userStatus"></p>
     </div>
-    <div class="cart-items" id="cartItems">
-      <p class="cart-empty">Tu carrito está vacío.</p>
-    </div>
-    <div class="cart-footer">
-      <div class="cart-totals" id="cartTotals"></div>
-      <button class="checkout-btn" id="checkoutBtn" disabled>Finalizar compra</button>
-    </div>
-  </div>
+</div>
 
-  <div class="modal-overlay" id="loginModal">
-    <div class="modal-box">
-      <span class="modal-close-top" id="closeModal">✕</span>
-      <h2 class="modal-title">Bienvenido/a</h2>
-      <p class="modal-subtitle">Inicia sesión para guardar tus pedidos</p>
-      <div class="form-group">
-        <label for="inputName">Nombre</label>
-        <input type="text" id="inputName" placeholder="Tu nombre completo" />
-      </div>
-      <div class="form-group">
-        <label for="inputEmail">Email</label>
-        <input type="email" id="inputEmail" placeholder="correo@ejemplo.com" />
-      </div>
-      <button class="modal-login-btn" id="loginBtn">Entrar</button>
-      <p class="modal-hint">Demo · No se envían datos reales</p>
+<section class="controls">
+    <select id="categoryFilter" onchange="filtrarCategoria()">
+        <option value="all">Todas las categorías</option>
+        <option value="novela">Novela</option>
+        <option value="fantasia">Fantasía</option>
+        <option value="historia">Historia</option>
+    </select>
+
+    <button onclick="ordenarPrecio()">Ordenar por precio ↑</button>
+</section>
+
+<section id="productGrid" class="grid"></section>
+
+<footer class="footer">
+    <div class="footer-content">
+        <p>📚 Librería Lemos — Tu rincón de lectura</p>
+        <p>© 2026 Todos los derechos reservados</p>
     </div>
-  </div>
-  <div class="toast" id="toast"></div>
+</footer>
   <script src="java.js"></script>
 </body>
 </html>
